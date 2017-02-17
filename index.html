@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Painel GLPI</title>
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="scripts/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="scripts/bootstrap/css/font-awesome.min.css">
+
+	<!-- JS -->
+	<script src="scripts/js/jquery-1.11.1.min.js"></script>
+	<script src="scripts/bootstrap/js/bootstrap.min.js"></script>	
+	<script src="scripts/js/raphael-min.js"></script>
+	<script src="scripts/js/morris.min.js"></script>
+	<script src="scripts/js/myMorris.js"></script>
+	<script src="scripts/js/mod_xhr.js"></script>
+	<script src="scripts/js/events/getChamados.js"></script>
+	<script src="scripts/js/events/getChamadosTecnicos.js"></script>
+	<script src="scripts/js/events/getChamadosArea.js"></script>
+
+	<meta http-equiv="refresh" content="90">
+	
+	<style type="text/css">
+		.panel-green {
+			border-color: #5cb85c;
+			background-color: #5cb85c;
+			color: #fff;
+		}
+		.panel-yellow {
+			border-color: #f0ad4e;
+			background-color: #f0ad4e;
+			color: #fff;
+		}
+		.panel-red {
+			border-color: #d9534f;
+			background-color: #d9534f;
+			color: #fff;
+		}
+		.text-green{
+			color:  #5cb85c;
+		}
+		.text-yellow{
+			color: #f0ad4e;
+		}
+		.text-red{
+			color: #d9534f;
+		}
+		.huge {
+			font-size: 40px;
+		}
+
+		.panel, .panel-footer span{
+			font-weight: bold;
+		}
+
+		/* --------------------------------------------------------------------------------------------------- */
+
+		/* Morris */
+		.morris-hover{
+			visibility: hidden;
+			position:absolute;
+			z-index:1000
+		}
+		.morris-hover.morris-default-style{
+			border-radius:10px;
+			padding:6px;
+			color:#666;
+			background:rgba(255,255,255,0.8);
+			border:solid 2px rgba(230,230,230,0.8);
+			font-family:sans-serif;
+			font-size:12px;
+			text-align:center
+		}
+		.morris-hover.morris-default-style .morris-hover-row-label		{
+			font-weight:bold;
+			margin:0.25em 0
+		}
+		.morris-hover.morris-default-style .morris-hover-point{
+			white-space:nowrap;
+			margin:0.1em 0
+		}
+
+		/*svg:not(:root) { height: 100% !important; }*/
+	</style>
+</head>
+<body>
+
+<!-- <div class="jumbotron">
+	<h1 class="text-center">Em manutenção</h1>
+</div> -->
+
+
+<div id="page" class="col-lg-12">
+	<!-- <h1 class="page-header text-center" id="title"></h1>	 -->
+	<!-- <hr> -->
+
+	<!-- Boxes de totais de chamados -->
+	<div class="col-lg-12">
+
+		<div class="row">
+			<!-- Não solucionados -->
+			<div class="col-lg-2  col-lg-offset-1">
+				<h3 class="text-center" style="height: 26px"></h3>
+				<div class="panel panel-danger">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-exclamation-circle fa-4x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge" id="qtd_n_solucionado">0</div>							
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-footer text-center">
+						<span class="text-danger">Não Solucionados</span>				
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Novos -->
+			<div class="col-lg-2">
+				<h3 class="text-center">Meta 1</h3>
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-plus-circle fa-4x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge" id="qtd_novos">0</div>							
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-footer text-center">
+						<span class="text-success">Novos</span>				
+						<div class="clearfix"></div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Nao atribuídos -->
+			<div class="col-lg-2">
+				<h3 class="text-center">Meta 2</h3>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-user-times fa-4x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge" id="qtd_n_atribuidos">0</div>							
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-footer text-center">
+						<span class="text-primary">Não atribuídos</span>				
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>	
+
+			<!-- Vencidos -->
+			<div class="col-lg-2">
+				<h3 class="text-center">Meta 3</h3>
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-clock-o fa-4x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge" id="qtd_vencidos">0</div>							
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-footer text-center">
+						<span class="text-warning">Vencidos</span>				
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>				
+
+			<!-- Outros -->
+			<div class="col-lg-2">
+				<h3 class="text-center" style="height: 26px"></h3>
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-question-circle-o fa-4x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge" id="qtd_outros">0</div>							
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-footer text-center">
+						<span class="text-info">Outros</span>				
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- Charts -->
+	<div class="row col-lg-12">
+
+		<!-- Gráfico de chamados a vencer -->
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados que vencerão em... 	   
+					<div class="pull-right">
+						<div class="btn-group">
+
+						</div>
+					</div>    
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="ChartTicketsVencimento" style="height: 200px; font-size: 20; font-weight: bold;"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Gráfico de chamados por técnico -->
+		<div class="col-lg-9">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados não solucionados (por técnico)
+					<div class="pull-right">
+						<div class="btn-group">
+
+						</div>
+					</div>    
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="ChartTicketsNSolucionadosTecnico" style="height: 200px"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Gráfico de chamados por area -->
+		<div class="col-lg-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados por área
+					<div class="pull-right">
+						<div class="btn-group">
+
+						</div>
+					</div>    
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="ChartTicketsNSolucionadosArea" style="height: 200px"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
