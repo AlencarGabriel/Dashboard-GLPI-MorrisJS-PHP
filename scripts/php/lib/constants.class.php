@@ -203,6 +203,7 @@ EOF;
 EOF;
 
 		const INV_REQ_DATA = "INVALID REQUEST DATA";
+		const SQL_EXISTE_MODIFICACAO = "select (count(*) > 0) as existe_mod, now() as timestamp from glpi_tickets where date_mod >= ";
 
 	}
 

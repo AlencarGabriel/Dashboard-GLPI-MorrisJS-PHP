@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Painel GLPI</title>
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="scripts/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="scripts/bootstrap/css/font-awesome.min.css">
+
+	<!-- JS -->
+	<script src="scripts/js/jquery-1.11.1.min.js"></script>
+	<script src="scripts/bootstrap/js/bootstrap.min.js"></script>	
+	<script src="scripts/js/raphael-min.js"></script>
+	<script src="scripts/js/morris.min.js"></script>
+	<script src="scripts/js/myMorris.js"></script>
+	<script src="scripts/js/events/getChamados.js"></script>
+	<script src="scripts/js/events/getChamadosTecnicos.js"></script>
+	<script src="scripts/js/events/getChamadosArea.js"></script>
+
+	<meta http-equiv="refresh" content="60"> 	
+	<style type="text/css">
+		.panel-green {
+			border-color: #5cb85c;
+			background-color: #5cb85c;
+			color: #fff;
+		}
+		.panel-yellow {
+			border-color: #f0ad4e;
+			background-color: #f0ad4e;
+			color: #fff;
+		}
+		.panel-red {
+			border-color: #d9534f;
+			background-color: #d9534f;
+			color: #fff;
+		}
+		.text-green{
+			color:  #5cb85c;
+		}
+		.text-yellow{
+			color: #f0ad4e;
+		}
+		.text-red{
+			color: #d9534f;
+		}
+		.huge {
+			font-size: 40px;
+		}
+
+		.panel, .panel-footer span{
+			font-weight: bold;
+		}
+
+		/* --------------------------------------------------------------------------------------------------- */
+
+		/* Morris */
+		.morris-hover{
+			visibility: hidden;
+			position:absolute;
+			z-index:1000
+		}
+		.morris-hover.morris-default-style{
+			border-radius:10px;
+			padding:6px;
+			color:#666;
+			background:rgba(255,255,255,0.8);
+			border:solid 2px rgba(230,230,230,0.8);
+			font-family:sans-serif;
+			font-size:12px;
+			text-align:center
+		}
+		.morris-hover.morris-default-style .morris-hover-row-label		{
+			font-weight:bold;
+			margin:0.25em 0
+		}
+		.morris-hover.morris-default-style .morris-hover-point{
+			white-space:nowrap;
+			margin:0.1em 0
+		}
+
+		/*svg:not(:root) { height: 100% !important; }*/
+	</style>
+</head>
+<body>
+
+	<div class="jumbotron">
+		<h1 class="text-center">Em manutenção</h1>
+	</div> 
+</body>
+</html>

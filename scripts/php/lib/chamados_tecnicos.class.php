@@ -22,7 +22,7 @@
  */
 	public static function GetTotalChamados(){
 		$pdo = conexao::conecta();
-		$sql = funcoes::ExecutePDO(constants::SQL_TOTAL_TECNICO, false);
+		$sql = funcoes::ExecutePDO(constants::SQL_TOTAL_TECNICO);
 
 		return $sql->fetchAll(PDO::FETCH_CLASS, __CLASS__);
 	}
