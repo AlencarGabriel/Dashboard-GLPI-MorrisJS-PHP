@@ -7,8 +7,8 @@ class conexao{
 	// Variáveis da conexão
 	static private $base_dados  = 'dbname=glpi;';
 	static private $usuario_bd  = 'root';
-	static private $senha_bd    = 'm3d1c0';
-	static private $host_db     = 'mysql:host=192.168.50.32;';
+	static private $senha_bd    = '';
+	static private $host_db     = 'mysql:host=127.0.0.1;';
 	static private $charset_db  = 'charset=UTF8;';
 	public static  $Instancia_Conexao =  null;
 	
