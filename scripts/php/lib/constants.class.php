@@ -204,7 +204,16 @@ EOF;
 
 		const INV_REQ_DATA = "INVALID REQUEST DATA";
 		const SQL_EXISTE_MODIFICACAO = "select (count(*) > 0) as existe_mod, now() as timestamp from glpi_tickets where date_mod >= ";
-
+		const SQL_EXISTE_MODIFICACAO_FOLLOW = "select (count(*) > 0) as existe_mod, now() as timestamp from glpi_ticketfollowups where is_private = 0 and content <> '' and date >= ";		
+		const SQL_FOLLOW_UP = <<<EOF
+		SELECT c.id as ticket, a.date, a.content, concat(b.firstname, " ",  b.realname) as realname, c.name ,
+		(select count(*) > 0 from glpi_tickets_users where glpi_tickets_users.type = '2' and glpi_tickets_users.tickets_id = a.tickets_id and glpi_tickets_users.users_id =  a.users_id) as is_tecnico,
+        (select count(*) > 0 from glpi_tickets_users where glpi_tickets_users.type = '1' and (glpi_tickets_users.tickets_id = a.tickets_id and glpi_tickets_users.users_id =  a.users_id or a.users_id = c.users_id_recipient)) as is_ator        
+        FROM glpi.glpi_ticketfollowups a
+		inner join glpi.glpi_users b on a.users_id = b.id
+		inner join glpi.glpi_tickets c on a.tickets_id = c.id
+		where a.is_private = 0 and a.content <> '' and a.date >= 
+EOF;
 	}
 
 	?>
