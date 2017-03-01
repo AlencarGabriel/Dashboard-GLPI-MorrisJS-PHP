@@ -51,8 +51,8 @@ public static function QuotedStr($str){
  * @return boolean - true para existe modificação, false para não 
  */
 
-public static function ExisteModificacao($timestamp, &$outTimestamp){
-	$consulta = self::ExecutePDO(constants::SQL_EXISTE_MODIFICACAO . self::QuotedStr($timestamp));
+public static function ExisteModificacao($timestamp, &$outTimestamp, $sqlModificacao){
+	$consulta = self::ExecutePDO($sqlModificacao . self::QuotedStr($timestamp));
 	$row = $consulta->fetch();
 	
 	if ($row["existe_mod"]){
@@ -69,10 +69,10 @@ public static function ExisteModificacao($timestamp, &$outTimestamp){
 /**
  * função que faz a técnica Long Pooling
  * @param string $timestamp - timestamp a ser consultado
- * @param anonymou function $funcao - função que será executada quando existir modificação nos tickets
+ * @param anonymou function $funcao - função que será executada quando existir modificação conforme o SQL repassado
  * @return string json que será resultada de $funcao 
  */
-public static function LongPooling($timestamp, $funcao){
+public static function LongPooling($timestamp, $sqlModificacao, $funcao){
 	// faz com que o PHP entenda que nao está em loop infinito, o lopp só pode permanecer por 6 minutos.
 	// foi definido este tempo, pois a pagina (HTML) vai atualizar de 5 em 5 min. Então cada loop pode ser processado por até 6min.
 	ini_set('max_execution_time', 360); //360 seconds = 6 minutes 
@@ -81,13 +81,22 @@ public static function LongPooling($timestamp, $funcao){
 
 	// Este loop será o responsável por manter a conexão aberta com o servidor
 	while (true) {
-		if (self::ExisteModificacao($timestamp, $retornoTimestamp)){			
-				return $funcao($retornoTimestamp); // chama a função que fará as requisições necessárias para entregar ao JS
+		if (self::ExisteModificacao($timestamp, $retornoTimestamp, $sqlModificacao)){			
+				return $funcao($retornoTimestamp, $timestamp); // chama a função que fará as requisições necessárias para entregar ao JS
 			}else{
 				sleep(2);
 				continue;
 			}
 		}
 	}
+
+/**
+ * Função que retorna um ID UNICO caso seja necessário para uso
+ * @return string
+ */
+public function GetUUID(){
+	return md5(uniqid(rand(), true));
+}
+
 }
 ?>

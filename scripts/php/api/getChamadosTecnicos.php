@@ -4,9 +4,8 @@ include "../autoload.php";
 $json = null;
 
 try {
-	// passsa o timestamp atual caso o parametro venha nulo
 	$timestamp = isset($_GET['timestamp']) ? $_GET['timestamp'] : null;
-	$json = funcoes::LongPooling($timestamp, function($timeconsulta){
+	$json = funcoes::LongPooling($timestamp, constants::SQL_EXISTE_MODIFICACAO, function($timeconsulta){
 		// Chama a função da classe que traz os chamados, neste caso ele chama outra que já desserializa o array
 		$chamados = chamados_tecnicos::SetToJson(chamados_tecnicos::GetTotalChamados());
 		// var_dump($chamados);
