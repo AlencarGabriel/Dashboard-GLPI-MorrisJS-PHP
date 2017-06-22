@@ -43,12 +43,12 @@ function getContentFollow(timestamp)
             if (obj[k].is_tecnico == false && obj[k].is_ator == true){
                 var followup = '<li class="left clearfix" id="'+ obj[k].UUID +'"> ' + 
                                 '<span class="chat-img pull-left"> ' +
-                                    '<p class="blue" data-letters="'+ letter +'"></p> ' +
+                                    '<p class="'+ letter.toLowerCase() +' p_left" data-letters="'+ letter +'"></p> ' +
                                     //'<img src="http://bootstrap-apex.com/s4atbv3/images/SergeiMartensAvatar.png" alt="Sergei Martens" class="img-circle"> ' +
                                 '</span> ' +
                                 '<div class="chat-body clearfix"> ' +
                                     '<div class="header"> ' +
-                                        '<strong class="primary-font">' + obj[k].realname + ' - <a target="new" href="http://chamados.brametal.com.br/front/ticket.form.php?id=' + obj[k].ticket + '">' + obj[k].ticket + ' | ' + obj[k].name + '</a></strong>  ' +
+                                        '<strong class="primary-font">' + obj[k].realname + ' - <a target="_blank" href="http://chamados.brametal.com.br/front/ticket.form.php?id=' + obj[k].ticket + '">' + obj[k].ticket + ' | ' + obj[k].name + '</a></strong>  ' +
                                         '<small class="pull-right text-muted"> ' +
                                             '<i class="fa fa-clock-o fa-fw"></i> ' + getFormattedTime(obj[k].date) + ' ' +
                                         '</small> ' +
@@ -61,7 +61,7 @@ function getContentFollow(timestamp)
             }else{
                 var followup = '<li class="right clearfix" id="'+ obj[k].UUID +'"> ' + 
                                 '<span class="chat-img pull-right"> ' +
-                                    '<p class="green" data-letters="'+ letter +'"></p> ' +
+                                    '<p class="'+ letter.toLowerCase() +' p_right" data-letters="'+ letter +'"></p> ' +
                                     //'<img src="http://bootstrap-apex.com/s4atbv3/images/SergeiMartensAvatar.png" alt="Sergei Martens" class="img-circle"> ' +
                                 '</span> ' +
                                 '<div class="chat-body clearfix"> ' +
@@ -69,7 +69,7 @@ function getContentFollow(timestamp)
                                         '<small class=" text-muted"> ' +
                                             '<i class="fa fa-clock-o fa-fw"></i> ' + getFormattedTime(obj[k].date) + ' ' +
                                         '</small> ' +
-                                        '<strong class="pull-right primary-font">' + obj[k].realname + ' - <a target="new" href="http://chamados.brametal.com.br/front/ticket.form.php?id=' + obj[k].ticket + '">' + obj[k].ticket + ' | ' + obj[k].name + '</a></strong>  ' +
+                                        '<strong class="pull-right primary-font">' + obj[k].realname + ' - <a target="_blank" href="http://chamados.brametal.com.br/front/ticket.form.php?id=' + obj[k].ticket + '">' + obj[k].ticket + ' | ' + obj[k].name + '</a></strong>  ' +
                                     '</div> ' +
                                     '<p> ' +
                                         obj[k].content + ' ' +

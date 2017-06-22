@@ -160,22 +160,24 @@ EOF;
 
 		const SQL_TOTAL_TECNICO = <<<EOF
 		select 
+		c.id,
 		count(*) as total,
-		glpi_users.firstname
+        (select  count(distinct d.id, e.users_id) from glpi_tickets d inner join glpi_tickets_users e on d.id = e.tickets_id where d.solvedate <> '' and concat(month(d.solvedate) , year(d.solvedate)) = concat(month(now()) , year(now())) and e.users_id = c.id and e.type = '2'  group by c.id) as solucionados,
+		c.firstname
 
 		from 
-		glpi_tickets, 
-		glpi_tickets_users,
-		glpi_users
+		glpi_tickets a, 
+		glpi_tickets_users b,
+		glpi_users c
 
-		where glpi_tickets.closedate is null
-		and glpi_tickets.solvedate is null
-		and glpi_tickets.id = glpi_tickets_users.tickets_id
-		and glpi_tickets_users.type = '2'
-		and glpi_users.id = glpi_tickets_users.users_id
+		where a.closedate is null
+		and a.solvedate is null
+		and a.id = b.tickets_id
+		and b.type = '2'
+		and c.id = b.users_id
 
-		group by glpi_users.id
-		order by glpi_users.firstname
+		group by c.id
+		order by c.firstname
 EOF;
 
 		const SQL_TOTAL_AREA = <<<EOF
@@ -195,6 +197,31 @@ EOF;
 		where glpi_tickets.closedate is null
 		and glpi_tickets.solvedate is null		
         and tcb.level = 1
+
+		group by tcb.name
+		order by tcb.name
+
+
+EOF;
+
+		const SQL_TOTAL_AREA_NOVOS = <<<EOF
+		select 
+		count(*) as total,
+		(case tcb.name 
+              when 'INFRAESTRUTURA' THEN 'Infra'
+              when 'SISTEMAS' THEN 'Sis'
+              ELSE 'OUTRA'
+              END) as area
+		from 
+		glpi_tickets
+		
+        inner join glpi_ticketcategories tca on tca.id = glpi_tickets.ticketcategories_id        
+        inner join glpi_ticketcategories tcb on tca.ticketcategories_id = tcb.id
+
+		where glpi_tickets.closedate is null
+		and glpi_tickets.solvedate is null		
+        and tcb.level = 1
+		and glpi_tickets.status = 'new'
 
 		group by tcb.name
 		order by tcb.name

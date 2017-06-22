@@ -4,7 +4,7 @@
 	* Classe que controla os chamados por area
 	*/
 
-	class chamados_area
+	class chamados_area_novos
 	{
 		private $total;
 		private $area;
@@ -22,7 +22,7 @@
  */
 	public static function GetTotalChamados(){
 		$pdo = conexao::conecta();
-		$sql = funcoes::ExecutePDO(constants::SQL_TOTAL_AREA);
+		$sql = funcoes::ExecutePDO(constants::SQL_TOTAL_AREA_NOVOS);
 
 		return $sql->fetchAll(PDO::FETCH_CLASS, __CLASS__);
 	}

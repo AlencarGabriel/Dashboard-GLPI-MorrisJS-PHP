@@ -1,9 +1,9 @@
-function getContentArea(timestamp)
+function getContentAreaNovos(timestamp)
 {
     var 
     queryString = {'timestamp' : timestamp};  
 
-    $.get('scripts/php/api/getChamadosArea.php', queryString, function(data)
+    $.get('scripts/php/api/getChamadosAreaNovos.php', queryString, function(data)
     {
         var responseJSON = JSON.parse(data).chamados;
         var resonseTimeStamp = JSON.parse(data).timestamp;
@@ -11,11 +11,11 @@ function getContentArea(timestamp)
         // console.log(responseJSON);
 
        // limpa o grafico
-       ChartTicketsNSolucionadosArea.innerHTML = '';
+       ChartTicketsNSolucionadosAreaNovos.innerHTML = '';
 
-        // Monta o gráfico de chamados não solucionados por área
+        // Monta o gráfico de chamados não solucionados por área Novos
         Morris.Bar({
-            element: 'ChartTicketsNSolucionadosArea',
+            element: 'ChartTicketsNSolucionadosAreaNovos',
             data: responseJSON,
             xkey: 'area',
             ykeys: ['total'],
@@ -35,11 +35,11 @@ function getContentArea(timestamp)
         //     $('#response').append(comment);
         // } 
         // reconecta ao receber uma resposta do servidor
-        getContentArea(resonseTimeStamp);
+        getContentAreaNovos(resonseTimeStamp);
     });
 }
 
 $(document).ready(function()
 {
-    getContentArea();
+    getContentAreaNovos();
 });

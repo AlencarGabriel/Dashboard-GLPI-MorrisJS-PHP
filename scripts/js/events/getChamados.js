@@ -35,23 +35,22 @@ function getContent(timestamp)
  		responseJSON["Venc_dezdia"]];   
 
  		// limpa o grafico
- 		var DIV_Chart_ChartTicketsVencimento = document.getElementById('ChartTicketsVencimento'); 
- 		DIV_Chart_ChartTicketsVencimento.innerHTML = '';
+ 		ChartTicketsVencimento.innerHTML = '';
 
  		// Monta o gráfico de chamados a vencer
  		var Chart = Morris.Bar({
  			element: 'ChartTicketsVencimento',
  			data: [
- 			{y: '1 dia',   a: Days[0]},
- 			{y: '2 dias',  a: Days[1]},
- 			{y: '3 dias',  a: Days[2]},
- 			{y: '4 dias',  a: Days[3]},
- 			{y: '5 dias',  a: Days[4]},
- 			{y: '6 dias',  a: Days[5]},
- 			{y: '7 dias',  a: Days[6]},
- 			{y: '8 dias',  a: Days[7]},
- 			{y: '9 dias',  a: Days[8]},
- 			{y: '10 dias', a: Days[9]}
+ 			{y: '1d',   a: Days[0]},
+ 			{y: '2d',  a: Days[1]},
+ 			{y: '3d',  a: Days[2]},
+ 			{y: '4d',  a: Days[3]},
+ 			{y: '5d',  a: Days[4]},
+ 			{y: '6d',  a: Days[5]},
+ 			{y: '7d',  a: Days[6]},
+ 			{y: '8d',  a: Days[7]},
+ 			{y: '9d',  a: Days[8]},
+ 			{y: '10d', a: Days[9]}
  			],
  			xkey: 'y',
  			ykeys: ['a'],

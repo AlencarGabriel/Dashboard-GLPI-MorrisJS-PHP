@@ -1,0 +1,106 @@
+/* Definição de cores de cada letra */
+
+.a:before {
+	background: #4fc3f7;
+} 
+
+.b:before {
+	background: #28AD4E;
+} 
+
+.c:before {
+	background: #FF7F24;
+} 
+
+.d:before {
+	background: #FFC125;
+} 
+
+.e:before {
+	background: #FF34B3;
+} 
+
+.f:before {
+	background: #43CD80;
+} 
+
+.g:before {
+	background: #EE4000;
+} 
+
+.h:before {
+	background: #00CD00;
+} 
+
+.i:before {
+	background: #4876FF;
+} 
+
+.j:before {
+	background: #48D1CC;
+} 
+
+.k:before {
+	background: #D2691E;
+} 
+
+.l:before {
+	background: #87CEEB;
+} 
+
+.m:before {
+	background: #43CD80;
+} 
+
+.n:before {
+	background: #8968CD;
+} 
+
+.o:before {
+	background: #FF8247;
+} 
+
+.p:before {
+	background: #008B8B;
+} 
+
+.q:before {
+	background: #EE2C2C;
+} 
+
+.r:before {
+	background: #006400;
+} 
+
+.s:before {
+	background: #FFD700;
+} 
+
+.t:before {
+	background: #FFA500;
+} 
+
+.u:before {
+	background: #DAA520;
+} 
+
+.v:before {
+	background: #5F9EA0;
+} 
+
+.w:before {
+	background: #8B2252;
+} 
+
+.x:before {
+	background: #836FFF;
+} 
+
+.y:before {
+	background: #FF7F00;
+} 
+
+.z:before {
+	background: #FF8247;
+} 
+

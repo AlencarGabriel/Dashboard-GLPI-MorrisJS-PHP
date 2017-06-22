@@ -16,6 +16,7 @@
 	<script src="scripts/js/events/getChamados.js"></script>
 	<script src="scripts/js/events/getChamadosTecnicos.js"></script>
 	<script src="scripts/js/events/getChamadosArea.js"></script>
+	<script src="scripts/js/events/getChamadosAreaNovos.js"></script>
 
 	<meta http-equiv="refresh" content="300"> <!-- 5 minutos -->
 	
@@ -216,7 +217,7 @@
 	<div class="row col-lg-12">
 
 		<!-- Gráfico de chamados a vencer -->
-		<div class="col-lg-12">
+		<div class="col-lg-9">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados que vencerão em... 	   
@@ -229,6 +230,24 @@
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<div id="ChartTicketsVencimento" style="height: 200px; font-size: 20; font-weight: bold;"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Gráfico de chamados novos por area -->
+		<div class="col-lg-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados Novos por Área
+					<div class="pull-right">
+						<div class="btn-group">
+
+						</div>
+					</div>    
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="ChartTicketsNSolucionadosAreaNovos" style="height: 200px"></div>
 				</div>
 			</div>
 		</div>
@@ -251,11 +270,11 @@
 			</div>
 		</div>
 
-		<!-- Gráfico de chamados por area -->
+		<!-- Gráfico de chamados não solucionados por area -->
 		<div class="col-lg-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados por área
+					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados por Área
 					<div class="pull-right">
 						<div class="btn-group">
 
