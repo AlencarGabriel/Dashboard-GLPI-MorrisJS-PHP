@@ -14,7 +14,7 @@ class conexao{
 	
 
 	public static function conecta(){ 
-		if (!isset(self::$instance)) {
+		if (!isset(self::$Instancia_Conexao)) {
 			try {
     			// Cria a conexão PDO com a base de dados
 				$detalhes_pdo = self::$host_db . self::$base_dados . self::$charset_db;
@@ -22,7 +22,7 @@ class conexao{
 				//print "Conectado!!";
 			} catch (PDOException $e) {
 		   	 // Se der algo errado, mostra o erro PDO
-				print "Erro: " . $e->getMessage() . "<br/>";   
+				echo "Erro: " . $e->getMessage() . "<br/>";   
   		  	// Mata o script
 				die();
 			}
@@ -31,6 +31,10 @@ class conexao{
 		}
 
 		return self::$Instancia_Conexao;
+	}
+
+	public static function desconecta(){ 
+		self::$Instancia_Conexao = NULL;
 	}
 }
 
