@@ -7,7 +7,7 @@
 
 /* GLOBAL */
 $ano_atual = date('Y'); // retorna o ano atual
-$Caminho_Site = '/';
+$Caminho_Site = '/PainelGLPI/';
 
 /* HEADER*/
 $nome_site = "Painel GLPI"; //<title>
@@ -31,11 +31,13 @@ $senha_mail_dev = '';
 $mail_contact = '';
 
 /* URL */
-const protocolos = array('http://','https://');
+// constante de array so no PHP >= 7
+// const protocolos = array('http://','https://');
+$protocolos = array('http://','https://');
 //$url = explode('/', $_SERVER['HTTP_HOST']);
-$protocolo = protocolos[0];
+$protocolo = $protocolos[0];
 $host = $_SERVER['HTTP_HOST']; 
-$caminho = (($host == 'localhost') ? $protocolo . $host . $Caminho_Site : $protocolo . $host); //terminar de preencher o Caminho. 
+$caminho = (($host == 'localhost') ? $protocolo . $host . $Caminho_Site : $protocolo . $host . $Caminho_Site);
 
 
 /* 

@@ -17,22 +17,36 @@ public static function ExecutaSQL($query, $pdo){
 
 public static function ExecutePDO($QUERY_SQL, $QUEBRAR_QUERY = false){
 	$pdo = conexao::conecta();
-	$pdo->beginTransaction();
+	// $pdo->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
+	// $pdo->beginTransaction();
 
-	if ($QUEBRAR_QUERY) {			
-		$arr = explode(";", $QUERY_SQL);
+	try {
+		
+		if ($QUEBRAR_QUERY) {			
+			$arr = explode(";", $QUERY_SQL);
 			// var_dump($arr);
-		foreach ($arr as $value) {			
-			$last = self::ExecutaSQL($value, $pdo);			
+			foreach ($arr as $value) {			
+				$last = self::ExecutaSQL($value, $pdo);			
+				// echo $value . "<br/>";
+			}
+
+			return $last;
+
+		}else{
+			// echo $QUERY_SQL . "<br/>";
+			return self::ExecutaSQL($QUERY_SQL, $pdo);
 		}
 
-		return $last;
+		// flush();
 
-	}else{
-		return self::ExecutaSQL($QUERY_SQL, $pdo);
+		// $pdo->commit();
+		// $pdo->setAttribute(PDO::ATTR_AUTOCOMMIT, 1);
+
+	} catch (Exception $e) {
+		echo "Erro: " . $e->getMessage() . "<br/>";   
+		// $pdo->rollBack();		
+		// $pdo->setAttribute(PDO::ATTR_AUTOCOMMIT, 1);
 	}
-
-	$pdo->commit();
 }
 
 /**
@@ -84,7 +98,7 @@ public static function LongPooling($timestamp, $sqlModificacao, $funcao){
 		if (self::ExisteModificacao($timestamp, $retornoTimestamp, $sqlModificacao)){			
 				return $funcao($retornoTimestamp, $timestamp); // chama a função que fará as requisições necessárias para entregar ao JS
 			}else{
-				sleep(2);
+				sleep(5);
 				continue;
 			}
 		}

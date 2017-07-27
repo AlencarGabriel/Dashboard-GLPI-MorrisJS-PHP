@@ -1,4 +1,5 @@
 <?php
+	include "master.php";
 	
 	function AutoLoadPainelGLPI ($ClassName) {
 		//$dir = 'scripts/php/lib/';
