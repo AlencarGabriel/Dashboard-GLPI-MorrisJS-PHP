@@ -7,7 +7,7 @@
 
 /* GLOBAL */
 $ano_atual = date('Y'); // retorna o ano atual
-$Caminho_Site = '/PainelGLPI/';
+$Caminho_Site = '/PainelGLPINovo/';
 
 /* HEADER*/
 $nome_site = "Painel GLPI"; //<title>

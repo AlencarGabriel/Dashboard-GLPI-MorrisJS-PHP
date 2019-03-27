@@ -5,31 +5,34 @@ function getContent(timestamp)
 
 	function getChamados(response){
 		var 
-		qtd_n_solucionado = document.getElementById('qtd_n_solucionado');
-		qtd_novos 	 	  = document.getElementById('qtd_novos');
-		qtd_outros 	 	  = document.getElementById('qtd_outros');
-		qtd_vencidos 	  = document.getElementById('qtd_vencidos');
-		qtd_n_atribuidos  = document.getElementById('qtd_n_atribuidos');
-		responseJSON 	  = response.chamados_analitico;
+        qtd_n_solucionado        = document.getElementById('qtd_n_solucionado');
+        qtd_novos                = document.getElementById('qtd_novos');
+		qtd_n_solucionados_user  = document.getElementById('qtd_n_solucionados_user');
+		qtd_outros 	 	         = document.getElementById('qtd_outros');
+		qtd_vencidos 	         = document.getElementById('qtd_vencidos');
+        qtd_internos             = document.getElementById('qtd_internos');
+        responseJSON 	         = response.chamados_analitico;
 
-		qtd_n_solucionado.innerHTML = responseJSON["N_Solucionados"];
-		qtd_novos.innerHTML 		= responseJSON["Novos"];
-		qtd_outros.innerHTML 		= responseJSON["Outros"];
-		qtd_vencidos.innerHTML 		= responseJSON["Vencidos"];
-		qtd_n_atribuidos.innerHTML  = responseJSON["N_Atribuidos"];  
-
+        qtd_n_solucionado.innerHTML       = responseJSON["N_Solucionados"];
+        qtd_novos.innerHTML               = responseJSON["Novos"];
+        qtd_n_solucionados_user.innerHTML = responseJSON["N_Solucionados_User"];
+        qtd_outros.innerHTML 		      = responseJSON["Outros"];
+        qtd_vencidos.innerHTML 		      = responseJSON["Vencidos"];
+        qtd_internos.innerHTML            = responseJSON["Internos"];  
 
  		// cria um array com os dias de vencimento
- 		Days = [responseJSON["Venc_umdia"], 
- 		responseJSON["Venc_doisdia"],
- 		responseJSON["Venc_tresdia"],
- 		responseJSON["Venc_quatrodia"],
- 		responseJSON["Venc_cincodia"],
- 		responseJSON["Venc_seisdia"],
- 		responseJSON["Venc_setedia"],
- 		responseJSON["Venc_oitodia"],
- 		responseJSON["Venc_novedia"],
- 		responseJSON["Venc_dezdia"]];   
+ 		Days = [
+        responseJSON["Venc_umdia"], 
+        responseJSON["Venc_doisdia"],
+        responseJSON["Venc_tresdia"],
+        responseJSON["Venc_quatrodia"],
+        responseJSON["Venc_cincodia"],
+        responseJSON["Venc_seisdia"],
+        responseJSON["Venc_setedia"],
+        responseJSON["Venc_oitodia"],
+        responseJSON["Venc_novedia"],
+        responseJSON["Venc_dezdia"]
+        ];   
 
  		// limpa o grafico
  		ChartTicketsVencimento.innerHTML = '';
@@ -38,7 +41,7 @@ function getContent(timestamp)
  		var Chart = Morris.Bar({
  			element: 'ChartTicketsVencimento',
  			data: [
- 			{y: '1d',   a: Days[0]},
+ 			{y: '1d',  a: Days[0]},
  			{y: '2d',  a: Days[1]},
  			{y: '3d',  a: Days[2]},
  			{y: '4d',  a: Days[3]},
@@ -88,7 +91,7 @@ function getContent(timestamp)
 
     function getChamadosAreaNovos(response){
     	var
- 		responseJSON = response.chamados_area_novos;
+     responseJSON = response.chamados_area_novos;
 
     	// limpa o grafico
     	ChartTicketsNSolucionadosAreaNovos.innerHTML = '';
@@ -111,7 +114,7 @@ function getContent(timestamp)
 
     function getChamadosTecnicos(response){
     	var
- 		responseJSON = response.chamados_tecnicos;
+     responseJSON = response.chamados_tecnicos;
 
     	// limpa o grafico
     	ChartTicketsNSolucionadosTecnico.innerHTML = '';

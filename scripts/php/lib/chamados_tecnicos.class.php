@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	/**
 	* Classe que controla os chamados por tecnico
@@ -12,7 +12,7 @@
 
 		public function __Get($name){
 			return $this->$name;
-		}	
+		}
 
 		public function __Set($name,$value){
 			$this->$name = $value;
@@ -24,11 +24,43 @@
 	 * @return string - Novo nome
 	 */
 	private function AlterName($name){
-		// if ($name == "Paulo") {
-		// 	return "Gibimba";
-		// }else{
-			return $name;
-		// }
+		if ($name == "Gabriel"){
+			return "GAS";
+		}elseif ($name == "Renan"){
+			return "RGT";
+		}elseif($name == "Patrick"){
+			return "PCB";
+		}elseif ($name == "Vinicius") {
+			return "VSN";
+		}elseif ($name == "Adriano") {
+			return "AFD";
+		}elseif ($name == "Rafael") {
+			return "RN";
+		}elseif ($name == "Guilherme") {
+			return "GPS";
+		}elseif ($name == "Harley") {
+			return "HDK";
+		}elseif ($name == "Marcelo") {
+			return "MJ";
+		}elseif ($name == "Cleber") {
+			return "CAF";
+		}elseif ($name == "Camatech") {
+			return "PCC";
+		}elseif ($name == "Diogo") {
+			return "DHS";
+		}elseif ($name == "Fartech") {
+			return "FC";
+		}elseif ($name == "Keyla") {
+			return "KSM";
+		}elseif ($name == "Otimiza") {
+			return "OTM";
+		}elseif ($name == "Pedro") {
+			return "PC";
+		}elseif ($name == "Totvs") {
+			return "TTV";
+		}else{
+			return substr($name, 0, 4) . ".";
+		}
 	}
 
 	/**

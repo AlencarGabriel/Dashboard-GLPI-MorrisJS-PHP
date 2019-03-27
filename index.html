@@ -2,17 +2,19 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Painel GLPI</title>
+	<title>Painel GLPI - Novo</title>
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="scripts/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="scripts/bootstrap/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="scripts/css/odometer-theme-default.css">
 
 	<!-- JS -->
 	<script src="scripts/js/jquery-1.11.1.min.js"></script>
-	<script src="scripts/bootstrap/js/bootstrap.min.js"></script>	
+	<script src="scripts/bootstrap/js/bootstrap.min.js"></script>
 	<script src="scripts/js/raphael-min.js"></script>
 	<script src="scripts/js/morris.min.js"></script>
 	<script src="scripts/js/myMorris.js"></script>
+	<script src="scripts/js/odometer.min.js"></script>
 	<!-- <script src="scripts/js/events/getChamados.js"></script>
 	<script src="scripts/js/events/getChamadosTecnicos.js"></script>
 	<script src="scripts/js/events/getChamadosArea.js"></script>
@@ -20,7 +22,7 @@
 	<script src="scripts/js/events/getAllData.js"></script>
 
 	<meta http-equiv="refresh" content="300"> <!-- 5 minutos -->
-	
+
 	<style type="text/css">
 		.panel-green {
 			border-color: #5cb85c;
@@ -81,6 +83,36 @@
 			margin:0.1em 0
 		}
 
+		#ChartTicketsNSolucionadosTecnico text{
+			font-size: 16px !important;
+		}
+
+		@keyframes hideshow {
+			0% { opacity: 0; }
+			10% { opacity: 0; }
+			15% { opacity: 1; }
+			100% { opacity: 1; }
+		}
+
+		.panel-heading{
+			animation: hideshow 2s ease-in-out ;
+		}
+
+		.panel-body, .huge {
+			animation: hideshow 2s ease-in-out ;
+		}
+
+		.panel-footer, i, h3{
+			animation: hideshow 5s ease-in-out ;
+		}
+
+		rect{
+			animation: hideshow 4s ease-in-out ;
+		}
+
+		tspan {
+			animation: hideshow 5s ease-in-out ;
+		}
 		/*svg:not(:root) { height: 100% !important; }*/
 	</style>
 </head>
@@ -98,10 +130,15 @@
 	<!-- Boxes de totais de chamados -->
 	<div class="col-lg-12">
 
-		<div class="row">
-			<!-- Não solucionados -->
-			<div class="col-lg-2  col-lg-offset-1">
+		<div class="col-lg-12">
+			<!-- <div class=" col-lg-1">
 				<h3 class="text-center" style="height: 26px"></h3>
+				<h1>New GLPI</h1>
+			</div> -->
+
+			<!-- Não solucionados -->
+			<div class="col-lg-2">
+				<h3 class="text-center">Geral</h3>
 				<div class="panel panel-danger">
 					<div class="panel-heading">
 						<div class="row">
@@ -109,13 +146,13 @@
 								<i class="fa fa-exclamation-circle fa-4x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge" id="qtd_n_solucionado">0</div>							
+								<div class="huge odometer" id="qtd_n_solucionado">0</div>
 							</div>
 						</div>
 					</div>
 
 					<div class="panel-footer text-center">
-						<span class="text-danger">Não Solucionados</span>				
+						<span class="text-danger">Não Solucionados</span>
 						<div class="clearfix"></div>
 					</div>
 				</div>
@@ -123,7 +160,7 @@
 
 			<!-- Novos -->
 			<div class="col-lg-2">
-				<h3 class="text-center">Meta 1</h3>
+				<h3 class="text-center">Usuários</h3>
 				<div class="panel panel-success">
 					<div class="panel-heading">
 						<div class="row">
@@ -131,13 +168,13 @@
 								<i class="fa fa-plus-circle fa-4x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge" id="qtd_novos">0</div>							
+								<div class="huge odometer" id="qtd_novos">0</div>
 							</div>
 						</div>
 					</div>
 
 					<div class="panel-footer text-center">
-						<span class="text-success">Novos</span>				
+						<span class="text-success">Novos</span>
 						<div class="clearfix"></div>
 					</div>
 
@@ -146,47 +183,47 @@
 
 			<!-- Nao atribuídos -->
 			<div class="col-lg-2">
-				<h3 class="text-center">Meta 2</h3>
-				<div class="panel panel-primary">
+				<h3 class="text-center">Usuários</h3>
+				<div class="panel panel-danger">
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-3">
 								<i class="fa fa-user-times fa-4x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge" id="qtd_n_atribuidos">0</div>							
+								<div class="huge odometer" id="qtd_n_solucionados_user">0</div>
 							</div>
 						</div>
 					</div>
 
 					<div class="panel-footer text-center">
-						<span class="text-primary">Não atribuídos</span>				
+						<span class="text-danger">Não Solucionados</span>
 						<div class="clearfix"></div>
 					</div>
 				</div>
-			</div>	
+			</div>
 
 			<!-- Vencidos -->
 			<div class="col-lg-2">
-				<h3 class="text-center">Meta 3</h3>
+				<h3 class="text-center" style="height: 26px"></h3>
 				<div class="panel panel-warning">
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-3">
-								<i class="fa fa-clock-o fa-4x"></i>
+								<i class="fa fa-clock-o fa-4x"></i> <!-- fa-pulse -->
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge" id="qtd_vencidos">0</div>							
+								<div class="huge odometer" id="qtd_vencidos">0</div>
 							</div>
 						</div>
 					</div>
 
 					<div class="panel-footer text-center">
-						<span class="text-warning">Vencidos</span>				
+						<span class="text-warning">Vencidos</span>
 						<div class="clearfix"></div>
 					</div>
 				</div>
-			</div>				
+			</div>
 
 			<!-- Outros -->
 			<div class="col-lg-2">
@@ -198,13 +235,35 @@
 								<i class="fa fa-question-circle-o fa-4x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge" id="qtd_outros">0</div>							
+								<div class="huge odometer" id="qtd_outros">0</div>
 							</div>
 						</div>
 					</div>
 
 					<div class="panel-footer text-center">
-						<span class="text-info">Outros</span>				
+						<span class="text-info">Monitoramento</span>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Internos -->
+			<div class="col-lg-2">
+				<h3 class="text-center" style="height: 26px"></h3>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-pied-piper fa-4x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge odometer" id="qtd_internos">0</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-footer text-center">
+						<span class="text-default">Internos</span>
 						<div class="clearfix"></div>
 					</div>
 				</div>
@@ -213,60 +272,23 @@
 	</div>
 
 
-
 	<!-- Charts -->
-	<div class="row col-lg-12">
+	<div class="col-lg-12">
 
 		<!-- Gráfico de chamados a vencer -->
-		<div class="col-lg-9">
+		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados que vencerão em... 	   
+					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados que vencerão em...
 					<div class="pull-right">
 						<div class="btn-group">
 
 						</div>
-					</div>    
+					</div>
 				</div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<div id="ChartTicketsVencimento" style="height: 200px; font-size: 20; font-weight: bold;"></div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Gráfico de chamados novos por area -->
-		<div class="col-lg-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados Novos por Área
-					<div class="pull-right">
-						<div class="btn-group">
-
-						</div>
-					</div>    
-				</div>
-				<!-- /.panel-heading -->
-				<div class="panel-body">
-					<div id="ChartTicketsNSolucionadosAreaNovos" style="height: 200px"></div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Gráfico de chamados por técnico -->
-		<div class="col-lg-9">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados não solucionados (por técnico)
-					<div class="pull-right">
-						<div class="btn-group">
-
-						</div>
-					</div>    
-				</div>
-				<!-- /.panel-heading -->
-				<div class="panel-body">
-					<div id="ChartTicketsNSolucionadosTecnico" style="height: 200px"></div>
 				</div>
 			</div>
 		</div>
@@ -280,11 +302,47 @@
 						<div class="btn-group">
 
 						</div>
-					</div>    
+					</div>
 				</div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<div id="ChartTicketsNSolucionadosArea" style="height: 200px"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Gráfico de chamados novos por area -->
+		<div class="col-lg-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados Novos por Área
+					<div class="pull-right">
+						<div class="btn-group">
+
+						</div>
+					</div>
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="ChartTicketsNSolucionadosAreaNovos" style="height: 200px"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Gráfico de chamados por técnico -->
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-bar-chart-o fa-fw"></i> Chamados não solucionados (por técnico)
+					<div class="pull-right">
+						<div class="btn-group">
+
+						</div>
+					</div>
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="ChartTicketsNSolucionadosTecnico" style="height: 200px"></div>
 				</div>
 			</div>
 		</div>

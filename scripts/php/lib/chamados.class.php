@@ -8,10 +8,12 @@
 	{
 		private $Novos;
 		private $N_Solucionados;
+		private $N_Solucionados_User;
 		private $Outros;
 		private $Dt_hoje;
 		private $Vencidos;
 		private $N_Atribuidos;
+		private $Internos;
 		private $Venc_umdia;
 		private $Venc_doisdia;
 		private $Venc_tresdia;

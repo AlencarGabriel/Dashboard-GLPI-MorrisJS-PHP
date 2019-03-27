@@ -32,7 +32,7 @@ function getContentTecnico(timestamp)
             element: 'ChartTicketsNSolucionadosTecnico',
             data: responseJSON,
             xkey: 'firstname',
-            ykeys: ['total', 'solucionados'],
+            ykeys: ['total'],
             labels: ['Técnico', 'Chamados abertos'],
             xLabelAngle: 0,
             labelTop: true,
